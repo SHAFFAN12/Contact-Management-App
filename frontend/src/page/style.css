@@ -265,7 +265,7 @@ label{
 .home-btn:hover,
 .home-btn:focus{
     
-    color: black;
+    color: #6eff3e;
     text-shadow: none;
 }
 .home-btn:hover::before,

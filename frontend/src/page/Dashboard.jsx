@@ -39,6 +39,7 @@ const Dashboard = () => {
       console.error('Error fetching contacts:', error);
     }
   };
+
   useEffect(() => {
     // Fetch contacts on component mount
     fetchContacts();
@@ -59,12 +60,12 @@ const Dashboard = () => {
         cancelButtonColor: '#3085d6',
         confirmButtonText: 'Yes, delete it!',
       });
-  
+
       if (confirmDelete) {
         // User clicked "Yes, delete it!" in the SweetAlert
         await deletecontact(contactId);
         await fetchContacts(); // Fetch updated contacts after deletion
-  
+
         Swal.fire({
           icon: 'success',
           title: 'Deleted!',
@@ -73,7 +74,7 @@ const Dashboard = () => {
       }
     } catch (error) {
       console.error('Error deleting contact:', error);
-  
+
       Swal.fire({
         icon: 'error',
         title: 'Error Deleting contact',
@@ -81,7 +82,6 @@ const Dashboard = () => {
       });
     }
   };
-  
 
   const handleAddContact = async () => {
     try {
@@ -180,32 +180,36 @@ const Dashboard = () => {
         <div className="flex justify-between items-center px-8">
           <h2 className="text-2xl font-bold text-[#6eff3e]">Dashboard</h2>
           {userDetails && userDetails.name && (
-  <p className="font-bold">WELCOME! {userDetails.name}</p>
-)}
-
-          
-          <a className='edit-btn' onClick={logout}  style={{ '--clr': '#6eff3e' }}><span>Log Out</span><i></i></a>
-
+            <p className="font-bold">WELCOME! {userDetails.name}</p>
+          )}
+          <button
+            className='edit-btn'
+            onClick={logout}
+            style={{ '--clr': '#6eff3e' }}
+          >
+            <span>Log Out</span><i></i>
+          </button>
         </div>
       </div>
 
-       <div className="flex-grow bg-white shadow-md p-8 rounded-md mx-8 ">  
-        
+      <div className="flex-grow bg-white shadow-md p-8 rounded-md mx-8 ">
         <div className="mt-8">
-          <h3 className="home-heading">CO<span className='text-[#6eff3e]'>NTAC</span>TS</h3> 
-           <div className='flex justify-between px-[5rem]'><div className='text-black'>search:  <input type='search' className='border border-black p-1 px-2 rounded-lg' />
-           {/*search contact button*/ }
-           </div>
-          
-          <button
-            onClick={handleAddContact}
-            className="home-btn">Add Contact
-          </button>{/*add contact button*/ }
+          <h3 className="home-heading">CO<span className='text-[#6eff3e]'>NTAC</span>TS</h3>
+          <div className='flex flex-col md:flex-row justify-between px-4 md:px-0'>
+            <div className='text-black mb-4 md:mb-0 md:mr-4'>
+              search: <input type='search' className='border border-black p-1 px-2 rounded-lg' />
+            </div>
+            <button
+              onClick={handleAddContact}
+              className="home-btn md:ml-4"
+            >
+              Add Contact
+            </button>
           </div>
-          <ul className='grid grid-cols-3 gap-5 '>
+          <ul className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
             {contacts.map((contact) => (
-              <li key={contact._id} className=" mb-4 cursor-pointer border-b-4 border-[#6eff3e] pb-4">{/*border bottom*/ }
-                <div className=" shadow-2xl shadow-inner hover:shadow-[#6eff3e] p-3 rounded-3xl" >{/*card hover*/ }
+              <li key={contact._id} className=" mb-4 cursor-pointer border-b-4 border-[#6eff3e] pb-4">
+                <div className="shadow-2xl shadow-inner hover:shadow-[#6eff3e] p-3 rounded-3xl">
                   <div>
                     <p className="text-xl font-semibold text-black">{contact.name}</p>
                     <p className="text-black">{contact.email}</p>
@@ -213,8 +217,20 @@ const Dashboard = () => {
                     <p className="text-black">{contact.relation}</p>
                   </div>
                   <div className="flex space-x-4">
-                    <a className='edit-btn' onClick={() => handleEditContact(contact._id)}  style={{ '--clr': '#6eff3e' }}><span>Edit</span><i></i></a>
-                    <a className='edit-btn' onClick={() => handleDeletecontact(contact._id)}  style={{ '--clr': '#ff1867' }}><span>Delete</span><i></i></a>
+                    <a
+                      className='edit-btn'
+                      onClick={() => handleEditContact(contact._id)}
+                      style={{ '--clr': '#6eff3e' }}
+                    >
+                      <span>Edit</span><i></i>
+                    </a>
+                    <a
+                      className='edit-btn'
+                      onClick={() => handleDeletecontact(contact._id)}
+                      style={{ '--clr': '#ff1867' }}
+                    >
+                      <span>Delete</span><i></i>
+                    </a>
                   </div>
                 </div>
               </li>
